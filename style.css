@@ -48,24 +48,6 @@
 	transition: 1s;
 }
 
-.number0 {
-	width: px;
-	height: 70px;
-	border-radius: 50%;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 1.5em;
-	color: white;
-	background-color: #333;
-	border: none;
-	outline: none;
-	transition: 1s;
-}
-
-.number0:hover {
-	background-color: #737373;
-	transition: 1s;
-}
-
 .operator, .equal {
 	width: 70px;
 	height: 70px;
