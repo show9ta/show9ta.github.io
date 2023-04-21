@@ -43,6 +43,14 @@
 	transition: 1s;
 }
 
+.zero {
+	width: 150px;
+	border-radius: 55px;	
+	text-align: left;
+	padding-left: 30px;
+	grid-column: 1 / span 2;
+}
+
 .number:hover {
 	background-color: #737373;
 	transition: 1s;
