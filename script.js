@@ -1,40 +1,78 @@
-// ボタンが押されたときの処理
 function buttonPressed(value) {
-    document.getElementById("input").value += value;
+  var input = document.getElementById("input");
+  if (input.value.length >= 13) {
+    alert("Too many digits!");
+    return;
   }
+  input.value += value;
+
+  // var num = num.replace(/\D/g, '');
+  if (input.value.includes(".") != true) {
+    var num = input.value.replaceAll(",", "");
+    var num = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    input.value = num;
+  }
+}
   
-  // Cボタンが押されたときの処理
+  function clearAllInput() {
+    document.getElementById("input").value = "";
+    document.getElementById("previousInput").value = "";
+    input1 = ""
+  }
+
   function clearInput() {
     document.getElementById("input").value = "";
   }
+
+  let operator = ""
   
-  // =ボタンが押されたときの処理
-  function calculate() {
-    var input = document.getElementById("input").value;
-    var operatorRegex = /[+\-*/]/g; // 演算子を表す正規表現
-    var numbers = input.split(operatorRegex); // 数字の配列を作成
-    var operators = input.match(operatorRegex); // 演算子の配列を作成
-    var result = parseFloat(numbers[0]); // 最初の数字を初期値に設定
-  
-    for (var i = 0; i < operators.length; i++) {
-      var number = parseFloat(numbers[i + 1]);
-      var operator = operators[i];
-      switch (operator) {
-        case "+":
-          result += number;
-          break;
-        case "-":
-          result -= number;
-          break;
-        case "*":
-          result *= number;
-          break;
-        case "/":
-          result /= number;
-          break;
-      }
+  function operatorPressed(value) {
+    //let users to add up like 5 + 5 + 5...
+    if (operator != "" && input.value != "") {
+      calculate()
+      operator = ""
     }
-  
-    document.getElementById("input").value = result;
+
+    //in case users mis-pressed an operator.
+    if (document.getElementById("input").value != "") {
+      operator = value
+      input1 = input.value
+      document.getElementById("input").value = "";
+      document.getElementById("previousInput").value = input1;
+    } else {
+      operator = value
+    }
+  }
+
+  function calculate() {
+    input2 = input.value
+    var num1 = Number(input1.replaceAll(",", ""))
+    var num2 = Number(input2.replaceAll(",", ""))
+    switch (operator) {
+    case "+":
+      var result = num1 + num2;
+      break;
+    case "-":
+      var result = num1 - num2;
+      break;
+    case "*":
+      var result = num1 * num2;
+      break;
+    case "/":
+      var result = num1 / num2;
+      break;
+    }
+    operator = ""
+    //
+    result = result.toString()
+    if (result.includes(".")) {
+      var resultPart1 = result.substr(0, result.indexOf("."));
+      var resultPart2 = result.substr(result.indexOf(".") + 1);
+      resultPart1 = resultPart1.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      var resultFinal = resultPart1 + "." + resultPart2
+    } else {
+      resultFinal = result.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    document.getElementById("input").value = resultFinal
   }
   
